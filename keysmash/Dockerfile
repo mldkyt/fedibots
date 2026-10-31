@@ -1,0 +1,24 @@
+FROM python:3.14-alpine
+
+WORKDIR /app
+
+RUN apk add --no-cache bash
+RUN pip3 install --upgrade uv
+
+COPY pyproject.toml .
+COPY uv.lock .
+
+RUN uv sync
+
+COPY alembic/ alembic/.
+COPY alembic.ini .
+COPY docker-entrypoint.sh .
+COPY main.py .
+COPY auth.py .
+COPY database.py .
+COPY logger.py .
+COPY user_prefs.py .
+
+STOPSIGNAL SIGKILL
+
+ENTRYPOINT ["bash", "docker-entrypoint.sh"]
