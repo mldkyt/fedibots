@@ -1,2 +1,2 @@
 # fedibots
-mldkyt's fediverse bots
+mldkyt's fediverse bots monorepo
